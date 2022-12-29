@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.33027.164
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelHub.Server", "TravelHub\Server\TravelHub.Server.csproj", "{16FE1FF5-AAF3-43AC-9A38-07B480310ADD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelHub.Server", "TravelHub\Server\TravelHub.Server.csproj", "{16FE1FF5-AAF3-43AC-9A38-07B480310ADD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelHub.Client", "TravelHub\Client\TravelHub.Client.csproj", "{75157E51-ECEA-4310-8164-59DC7ABE7F30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelHub.Client", "TravelHub\Client\TravelHub.Client.csproj", "{75157E51-ECEA-4310-8164-59DC7ABE7F30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelHub.Shared", "TravelHub\Shared\TravelHub.Shared.csproj", "{E66AE701-D86A-4705-A98E-3C68BFE1A6CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelHub.Shared", "TravelHub\Shared\TravelHub.Shared.csproj", "{E66AE701-D86A-4705-A98E-3C68BFE1A6CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
