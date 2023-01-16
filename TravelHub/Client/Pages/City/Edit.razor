@@ -1,0 +1,23 @@
+﻿@page "/city/edit/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>Edit City</h3>
+
+<FormComponent ButtonText="Update" OnValidSubmit="EditCity" city="city"/>
+
+@code {
+    [Parameter] public int id { get; set; }
+    City city = new City();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        city = await _client.GetFromJsonAsync<City>($"{Endpoints.CitiesEndPoint}/{id}");
+    }
+
+    async Task EditCity()
+    {
+        await _client.PutAsJsonAsync($"{Endpoints.CitiesEndPoint}/{id}",city);
+        _navManager.NavigateTo("/city/");
+    }
+}

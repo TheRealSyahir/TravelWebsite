@@ -1,0 +1,46 @@
+﻿@using TravelHub.Client.Component;
+
+<EditForm Model="@city" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label>Name:</label>
+            <div>
+                <InputText @bind-Value="@city.Name" class="form-control" />
+                <ValidationMessage For="@(() => city.Name)" />
+            </div>
+            <label>Safety:</label>
+            <div>
+                <InputNumber @bind-Value="@city.Safety" class="form-control" />
+                <ValidationMessage For="@(() => city.Safety)" />
+            </div>
+            <label>Transport:</label>
+            <div>
+                <InputText @bind-Value="@city.Transport" class="form-control" />
+                <ValidationMessage For="@(() => city.Transport)" />
+            </div>
+            <label>Country:</label>
+            <div>
+                <InputText @bind-Value="@city.Countryname" class="form-control" />
+                <ValidationMessage For="@(() => city.Countryname)" />
+            </div>
+
+        </div>
+    </fieldset>
+
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+    <BacktoList Target="city"/>
+</EditForm>
+
+@code {
+    [Parameter] public Boolean Disabled { get; set; } = false;
+    [Parameter] public City city { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}

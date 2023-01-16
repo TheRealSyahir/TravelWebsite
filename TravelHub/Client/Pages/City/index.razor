@@ -1,5 +1,75 @@
-﻿@page "/city";
+﻿@page "/city/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<h3 class="card-title">Cities</h3>
+<br />
+<a href="/city/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Cities
+</a>
+<br />
+<br />
+
+@if (Cities == null)
+{
+    <div class="alert alert-info">Loading Cities...</div>
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Safety</th>
+                <th>Transport</th>
+                <th>Country</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var city in Cities)
+            {
+                <tr>
+                    <td>@city.Name</td>
+                    <td>@city.Safety</td>
+                    <td>@city.Transport</td>
+                    <td>@city.Countryname</td>
+                    <td>
+                        <a href="/city/view/@city.CityID" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/city/edit/@city.CityID" class="btn btn-primary">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(city.CityID))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @code {
+    private List<City> Cities;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Cities = await _client.GetFromJsonAsync<List<City>>($"{Endpoints.CitiesEndPoint}");
+    }
+
+    async Task Delete(int cityID)
+    {
+        var city = Cities.First(q => q.CityID == cityID);
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {city.Name}?");
+        if (confirm)
+        {
+            await _client.DeleteAsync($"{Endpoints.CitiesEndPoint}/{cityID}");
+            await OnInitializedAsync();
+        }
+    }
 
 }

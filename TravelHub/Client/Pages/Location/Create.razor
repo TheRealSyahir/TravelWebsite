@@ -1,0 +1,18 @@
+﻿@page "/location/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Locations</h3>
+<br />
+
+<FormComponent ButtonText="Create Locations" location="location" OnValidSubmit="@CreateLocations"/>
+
+@code {
+    Location location = new Location();
+
+    protected async Task CreateLocations()
+    {
+        await _client.PostAsJsonAsync(Endpoints.LocationsEndPoint, location);
+        _navManager.NavigateTo("/location/");
+    }
+}

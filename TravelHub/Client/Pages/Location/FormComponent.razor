@@ -1,0 +1,62 @@
+﻿@inject HttpClient _client;
+@using TravelHub.Client.Component;
+
+<EditForm Model="@location" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label>Name:</label>
+            <div>
+                <InputText @bind-Value="@location.Name" class="form-control" />
+                <ValidationMessage For="@(() => location.Name)" />
+            </div>
+            <label>Safety:</label>
+            <div>
+                <InputNumber @bind-Value="@location.Safety" class="form-control" />
+                <ValidationMessage For="@(() => location.Safety)" />
+            </div>
+            <label>Address:</label>
+            <div>
+                <InputText @bind-Value="@location.Address" class="form-control" />
+                <ValidationMessage For="@(() => location.Address)" />
+            </div>
+            <label>City:</label>
+            <div>
+                <InputSelect @bind-Value="location.CityID" class="form-control">
+                    <option value="">-- Select City --</option>
+                    @if (city != null)
+                    {
+                        foreach (var city in city)
+                        {
+                            <option value="@city.CityID">@city.Name</option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => location.CityID)" />
+            </div>
+        </div>
+    </fieldset>
+
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+    <BacktoList Target="location"/>
+</EditForm>
+
+@code {
+    [Parameter] public Boolean Disabled { get; set; } = false;
+    [Parameter] public Location location { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private IList<City> city;
+
+    protected async override Task OnInitializedAsync()
+    {
+        city = await _client.GetFromJsonAsync<List<City>>($"{Endpoints.CitiesEndPoint}");
+    }
+}

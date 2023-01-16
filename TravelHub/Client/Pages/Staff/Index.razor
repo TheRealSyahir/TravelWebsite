@@ -1,0 +1,73 @@
+﻿@page "/staff/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<h3 class="card-title">Staffs</h3>
+<br />
+<a href="/staff/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Add New Staffs
+</a>
+<br />
+<br />
+
+@if (Staffs == null)
+{
+    <div class="alert alert-info">Loading Staffs...</div>
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Number</th>
+                <th>Address</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var staff in Staffs)
+            {
+                <tr>
+                    <td>@staff.Name</td>
+                    <td>@staff.Number</td>
+                    <td>@staff.Address</td>
+                    <td>
+                        <a href="/staff/view/@staff.StaffID" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/staff/edit/@staff.StaffID" class="btn btn-primary">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(staff.StaffID))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Staff> Staffs;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Staffs = await _client.GetFromJsonAsync<List<Staff>>($"{Endpoints.StaffsEndPoint}");
+    }
+
+    async Task Delete(int staffID)
+    {
+        var staff = Staffs.First(q => q.StaffID == staffID);
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {staff.Name}?");
+        if (confirm)
+        {
+            await _client.DeleteAsync($"{Endpoints.StaffsEndPoint}/{staffID}");
+            await OnInitializedAsync();
+        }
+    }
+
+}
