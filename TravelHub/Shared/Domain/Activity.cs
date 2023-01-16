@@ -17,6 +17,5 @@ namespace TravelHub.Shared.Domain
         public virtual Staff Staff { get; set; }
         public int LocationID { get; set; }
         public virtual Location Location { get; set; }
-
     }
 }
