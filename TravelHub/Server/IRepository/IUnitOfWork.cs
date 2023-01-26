@@ -13,5 +13,6 @@ namespace TravelHub.Server.IRepository
         IGenericRepository<City> Cities { get; }
         IGenericRepository<Location> Locations { get; }
         IGenericRepository<Staff> Staffs { get; }
+        IGenericRepository<Activity> Activities { get; }
     }
 }

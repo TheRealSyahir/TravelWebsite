@@ -1,0 +1,19 @@
+﻿@page "/activity/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Activities</h3>
+<br />
+
+<FormComponent ButtonText="Create Activities" activity="activity" OnValidSubmit="@CreateActivities"/>
+
+
+@code {
+    Activity activity = new Activity();
+
+    protected async Task CreateActivities()
+    {
+        await _client.PostAsJsonAsync(Endpoints.ActivitiesEndPoint, activity);
+        _navManager.NavigateTo("/activity/");
+    }
+}

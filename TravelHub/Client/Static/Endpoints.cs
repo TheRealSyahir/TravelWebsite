@@ -12,5 +12,6 @@ namespace TravelHub.Client.Static
         public static readonly string CitiesEndPoint = $"{prefix}/cities";
         public static readonly string LocationsEndPoint = $"{prefix}/locations";
         public static readonly string StaffsEndPoint = $"{prefix}/staffs";
+        public static readonly string ActivitiesEndPoint = $"{prefix}/activities";
     }
 }
