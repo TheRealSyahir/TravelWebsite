@@ -9,8 +9,7 @@ namespace TravelHub.Shared.Domain
 {
     public class Customer
     {
-        [Key]
-        public int CustID { get; set; }
+        public int CustomerID { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public int Number { get; set; }

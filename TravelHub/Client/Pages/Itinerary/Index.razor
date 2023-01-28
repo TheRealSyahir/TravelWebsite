@@ -33,13 +33,13 @@
                     <td>@itinerary.Budget</td>
                     <td>@itinerary.Customer.Name</td>
                     <td>
-                        <a href="/itinerary/view/@itinerary.ItnID" class="btn btn-primary">
+                        <a href="/itinerary/view/@itinerary.ItineraryID" class="btn btn-primary">
                             <span class="oi oi-book"></span>
                         </a>
-                        <a href="/itinerary/edit/@itinerary.ItnID" class="btn btn-primary">
+                        <a href="/itinerary/edit/@itinerary.ItineraryID" class="btn btn-primary">
                             <span class="oi oi-pencil"></span>
                         </a>
-                        <button class="btn btn-danger" @onclick="@(()=>Delete(itinerary.ItnID))">
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(itinerary.ItineraryID))">
                             <span class="oi oi-delete"></span>
                         </button>
                     </td>
@@ -61,13 +61,13 @@ else
         Itineraries = await _client.GetFromJsonAsync<List<Itinerary>>($"{Endpoints.ItinerariesEndPoint}");
     }
 
-    async Task Delete(int ItnID)
+    async Task Delete(int ItineraryID)
     {
-        var itinerary = Itineraries.First(q => q.ItnID == ItnID);
+        var itinerary = Itineraries.First(q => q.ItineraryID == ItineraryID);
         var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {itinerary.Duration}?");
         if (confirm)
         {
-            await _client.DeleteAsync($"{Endpoints.ItinerariesEndPoint}/{ItnID}");
+            await _client.DeleteAsync($"{Endpoints.ItinerariesEndPoint}/{ItineraryID}");
             await OnInitializedAsync();
         }
     }

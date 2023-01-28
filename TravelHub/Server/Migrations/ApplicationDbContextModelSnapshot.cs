@@ -372,7 +372,7 @@ namespace TravelHub.Server.Migrations
 
             modelBuilder.Entity("TravelHub.Shared.Domain.Customer", b =>
                 {
-                    b.Property<int>("CustID")
+                    b.Property<int>("CustomerID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -386,21 +386,21 @@ namespace TravelHub.Server.Migrations
                     b.Property<int>("Number")
                         .HasColumnType("int");
 
-                    b.HasKey("CustID");
+                    b.HasKey("CustomerID");
 
                     b.ToTable("Customer");
 
                     b.HasData(
                         new
                         {
-                            CustID = 1,
+                            CustomerID = 1,
                             Address = "Star City",
                             Name = "Oliver Queen",
                             Number = 81275892
                         },
                         new
                         {
-                            CustID = 2,
+                            CustomerID = 2,
                             Address = "Central City",
                             Name = "Barry Allen",
                             Number = 81265794
@@ -409,7 +409,7 @@ namespace TravelHub.Server.Migrations
 
             modelBuilder.Entity("TravelHub.Shared.Domain.Itinerary", b =>
                 {
-                    b.Property<int>("ItnID")
+                    b.Property<int>("ItineraryID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -417,18 +417,15 @@ namespace TravelHub.Server.Migrations
                     b.Property<float>("Budget")
                         .HasColumnType("real");
 
-                    b.Property<int>("CustID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CustomerCustID")
+                    b.Property<int>("CustomerID")
                         .HasColumnType("int");
 
                     b.Property<int>("Duration")
                         .HasColumnType("int");
 
-                    b.HasKey("ItnID");
+                    b.HasKey("ItineraryID");
 
-                    b.HasIndex("CustomerCustID");
+                    b.HasIndex("CustomerID");
 
                     b.ToTable("Itinerary");
                 });
@@ -535,7 +532,9 @@ namespace TravelHub.Server.Migrations
                 {
                     b.HasOne("TravelHub.Shared.Domain.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerCustID");
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Customer");
                 });

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TravelHub.Server.Migrations
 {
-    public partial class newdb : Migration
+    public partial class Test1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -68,7 +68,7 @@ namespace TravelHub.Server.Migrations
                 name: "Customer",
                 columns: table => new
                 {
-                    CustID = table.Column<int>(type: "int", nullable: false)
+                    CustomerID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -76,7 +76,7 @@ namespace TravelHub.Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customer", x => x.CustID);
+                    table.PrimaryKey("PK_Customer", x => x.CustomerID);
                 });
 
             migrationBuilder.CreateTable(
@@ -265,22 +265,21 @@ namespace TravelHub.Server.Migrations
                 name: "Itinerary",
                 columns: table => new
                 {
-                    ItnID = table.Column<int>(type: "int", nullable: false)
+                    ItineraryID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Duration = table.Column<int>(type: "int", nullable: false),
                     Budget = table.Column<float>(type: "real", nullable: false),
-                    CustomerCustID = table.Column<int>(type: "int", nullable: true),
-                    CustID = table.Column<int>(type: "int", nullable: false)
+                    CustomerID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Itinerary", x => x.ItnID);
+                    table.PrimaryKey("PK_Itinerary", x => x.ItineraryID);
                     table.ForeignKey(
-                        name: "FK_Itinerary_Customer_CustomerCustID",
-                        column: x => x.CustomerCustID,
+                        name: "FK_Itinerary_Customer_CustomerID",
+                        column: x => x.CustomerID,
                         principalTable: "Customer",
-                        principalColumn: "CustID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "CustomerID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -294,7 +293,7 @@ namespace TravelHub.Server.Migrations
 
             migrationBuilder.InsertData(
                 table: "Customer",
-                columns: new[] { "CustID", "Address", "Name", "Number" },
+                columns: new[] { "CustomerID", "Address", "Name", "Number" },
                 values: new object[,]
                 {
                     { 1, "Star City", "Oliver Queen", 81275892 },
@@ -352,9 +351,9 @@ namespace TravelHub.Server.Migrations
                 column: "Expiration");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Itinerary_CustomerCustID",
+                name: "IX_Itinerary_CustomerID",
                 table: "Itinerary",
-                column: "CustomerCustID");
+                column: "CustomerID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Location_CityID",

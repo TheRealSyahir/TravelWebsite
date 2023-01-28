@@ -15,14 +15,14 @@ namespace TravelHub.Server.Configurations.Entities
             builder.HasData(
                 new Customer
                 {
-                    CustID = 1,
+                    CustomerID = 1,
                     Name = "Oliver Queen",
                     Address = "Star City",
                     Number = 81275892                
                 },
                 new Customer
                 {
-                    CustID = 2,
+                    CustomerID = 2,
                     Name = "Barry Allen",
                     Address = "Central City",
                     Number = 81265794

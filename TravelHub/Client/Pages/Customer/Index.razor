@@ -36,13 +36,13 @@ else
                     <td>@customer.Address</td>
                     <td>@customer.Number</td>
                     <td>
-                        <a href="/customer/view/@customer.CustID" class="btn btn-primary">
+                        <a href="/customer/view/@customer.CustomerID" class="btn btn-primary">
                             <span class="oi oi-book"></span>
                         </a>
-                        <a href="/customer/edit/@customer.CustID" class="btn btn-primary">
+                        <a href="/customer/edit/@customer.CustomerID" class="btn btn-primary">
                             <span class="oi oi-pencil"></span>
                         </a>
-                        <button class="btn btn-danger" @onclick="@(()=>Delete(customer.CustID))">
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(customer.CustomerID))">
                             <span class="oi oi-delete"></span>
                         </button>
                     </td>
@@ -62,7 +62,7 @@ else
 
     async Task Delete(int custID)
     {
-        var customer = Customers.First(q => q.CustID == custID);
+        var customer = Customers.First(q => q.CustomerID == custID);
         var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {customer.Name}?");
         if (confirm)
         {

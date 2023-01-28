@@ -13,7 +13,7 @@ namespace TravelHub.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ItinerariesController : ControllerBase
+    public class ItinerariesController : Controller
     {
         
         private readonly IUnitOfWork _unitOfWork;
@@ -23,7 +23,6 @@ namespace TravelHub.Server.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        // GET: api/Itineraries
         [HttpGet]
         public async Task<IActionResult> GetItineraries()
         {
@@ -35,7 +34,7 @@ namespace TravelHub.Server.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetItinerary(int id)
         {
-            var itinerary = await _unitOfWork.Itineraries.Get(q => q.ItnID== id);
+            var itinerary = await _unitOfWork.Itineraries.Get(q => q.ItineraryID == id);
             if (itinerary == null)
             {
                 return NotFound();
@@ -49,7 +48,7 @@ namespace TravelHub.Server.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutItinerary(int id, Itinerary itinerary)
         {
-            if (id != itinerary.ItnID)
+            if (id != itinerary.ItineraryID)
             {
                 return BadRequest();
             }
@@ -83,14 +82,14 @@ namespace TravelHub.Server.Controllers
             await _unitOfWork.Itineraries.Insert(itinerary);
             await _unitOfWork.Save(HttpContext);
 
-            return CreatedAtAction("GetItinerary", new { id = itinerary.ItnID }, itinerary);
+            return CreatedAtAction("GetItinerary", new { id = itinerary.ItineraryID }, itinerary);
         }
 
         // DELETE: api/Itineraries/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteItinerary(int id)
         {
-            var itinerary = await _unitOfWork.Itineraries.Get(q => q.ItnID== id);   
+            var itinerary = await _unitOfWork.Itineraries.Get(q => q.ItineraryID== id);   
             if (itinerary == null)
             {
                 return NotFound();
@@ -104,7 +103,7 @@ namespace TravelHub.Server.Controllers
 
         private async Task<bool> ItineraryExists(int id)
         {
-            var itinerary = await _unitOfWork.Itineraries.Get(q => q.ItnID == id);
+            var itinerary = await _unitOfWork.Itineraries.Get(q => q.ItineraryID == id);
             return itinerary != null;
         }
     }

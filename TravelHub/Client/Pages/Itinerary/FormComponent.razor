@@ -21,17 +21,17 @@
 
             <label>Customer:</label>
             <div>
-                <InputSelect @bind-Value="itinerary.CustID" class="form-control">
+                <InputSelect @bind-Value="itinerary.CustomerID" class="form-control">
                     <option value="">-- Select Customer --</option>
                     @if (customer != null)
                     {
                         foreach (var customer in customer)
                         {
-                            <option value="@customer.CustID">@customer.Name</option>
+                            <option value="@customer.CustomerID">@customer.Name</option>
                         }
                     }
                 </InputSelect>
-                <ValidationMessage For="@(() => itinerary.CustID)" />
+                <ValidationMessage For="@(() => itinerary.CustomerID)" />
             </div>
         </div>
     </fieldset>

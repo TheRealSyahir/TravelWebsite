@@ -35,7 +35,7 @@ namespace TravelHub.Server.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomer(int id)
         {
-            var customer = await _unitOfWork.Customers.Get(q => q.CustID == id);
+            var customer = await _unitOfWork.Customers.Get(q => q.CustomerID == id);
             if (customer == null)
             {
                return NotFound();
@@ -49,7 +49,7 @@ namespace TravelHub.Server.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCustomer(int id, Customer customer)
         {
-            if (id != customer.CustID)
+            if (id != customer.CustomerID)
             {
                 return BadRequest();
             }
@@ -84,14 +84,14 @@ namespace TravelHub.Server.Controllers
             await _unitOfWork.Customers.Insert(customer);
             await _unitOfWork.Save(HttpContext);
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustID }, customer);
+            return CreatedAtAction("GetCustomer", new { id = customer.CustomerID }, customer);
         }
 
         // DELETE: api/Customers/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {
-            var customer = await _unitOfWork.Customers.Get(q => q.CustID == id);
+            var customer = await _unitOfWork.Customers.Get(q => q.CustomerID == id);
             if (customer == null)
             {
                 return NotFound();
@@ -105,7 +105,7 @@ namespace TravelHub.Server.Controllers
 
         private async Task<bool> CustomerExists(int id)
         {
-            var customer = await _unitOfWork.Customers.Get(q => q.CustID == id);
+            var customer = await _unitOfWork.Customers.Get(q => q.CustomerID == id);
             return customer != null;
         }
     }

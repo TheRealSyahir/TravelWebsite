@@ -42,6 +42,14 @@ namespace TravelHub.Server.Repository
         {
             return _staffs ??= new GenericRepository<Staff>(_context);
         }
+        public IGenericRepository<Customer> GetCustomers()
+        {
+            return _customers ??= new GenericRepository<Customer>(_context);
+        }
+        public IGenericRepository<Itinerary> GetItineraries()
+        {
+            return _itineraries ??= new GenericRepository<Itinerary>(_context);
+        }
 
         public IGenericRepository<City> Cities => _cities ??= new GenericRepository<City>(_context);
         public IGenericRepository<Location> Locations => _locations ??= new GenericRepository<Location>(_context);

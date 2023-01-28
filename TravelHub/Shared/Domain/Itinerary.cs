@@ -9,11 +9,10 @@ namespace TravelHub.Shared.Domain
 {
     public class Itinerary
     {
-        [Key]
-        public int ItnID { get; set; }
+        public int ItineraryID { get; set; }
         public int Duration { get; set; }
         public float Budget { get; set; }
         public virtual Customer Customer { get; set; }
-        public int CustID { get; set; } 
+        public int CustomerID { get; set; } 
     }
 }
