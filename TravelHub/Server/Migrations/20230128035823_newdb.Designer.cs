@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelHub.Server.Data;
 
-namespace TravelHub.Server.Data.Migrations
+namespace TravelHub.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230128035823_newdb")]
+    partial class newdb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -370,6 +372,69 @@ namespace TravelHub.Server.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("TravelHub.Shared.Domain.Customer", b =>
+                {
+                    b.Property<int>("CustID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.HasKey("CustID");
+
+                    b.ToTable("Customer");
+
+                    b.HasData(
+                        new
+                        {
+                            CustID = 1,
+                            Address = "Star City",
+                            Name = "Oliver Queen",
+                            Number = 81275892
+                        },
+                        new
+                        {
+                            CustID = 2,
+                            Address = "Central City",
+                            Name = "Barry Allen",
+                            Number = 81265794
+                        });
+                });
+
+            modelBuilder.Entity("TravelHub.Shared.Domain.Itinerary", b =>
+                {
+                    b.Property<int>("ItnID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<float>("Budget")
+                        .HasColumnType("real");
+
+                    b.Property<int>("CustID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CustomerCustID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.HasKey("ItnID");
+
+                    b.HasIndex("CustomerCustID");
+
+                    b.ToTable("Itinerary");
+                });
+
             modelBuilder.Entity("TravelHub.Shared.Domain.Location", b =>
                 {
                     b.Property<int>("LocationID")
@@ -466,6 +531,15 @@ namespace TravelHub.Server.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("TravelHub.Shared.Domain.Itinerary", b =>
+                {
+                    b.HasOne("TravelHub.Shared.Domain.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerCustID");
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("TravelHub.Shared.Domain.Location", b =>

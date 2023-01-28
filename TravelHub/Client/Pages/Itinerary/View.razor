@@ -1,0 +1,16 @@
+﻿@page "/itinerary/view/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>View</h3>
+
+<FormComponent itinerary="itinerary" Disabled="true"/>
+
+@code {
+    [Parameter] public int id { get; set; }
+    Itinerary itinerary = new Itinerary();
+    protected async override Task OnParametersSetAsync()
+    {
+        itinerary = await _client.GetFromJsonAsync<Itinerary>($"{Endpoints.ItinerariesEndPoint}/{id}");
+    }
+}

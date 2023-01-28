@@ -1,0 +1,44 @@
+﻿@inject HttpClient _client;
+@using TravelHub.Client.Component;
+
+<EditForm Model="@customer" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+
+            <label>Name:</label>
+            <div>
+                <InputText @bind-Value="@customer.Name" class="form-control" />
+                <ValidationMessage For="@(() => customer.Name)" />
+            </div>
+
+            <label>Address:</label>
+            <div>
+                <InputText @bind-Value="@customer.Address" class="form-control" />
+                <ValidationMessage For="@(() => customer.Address)" />
+            </div>
+
+            <label>Number:</label>
+            <div>
+                <InputNumber @bind-Value="@customer.Number" class="form-control" />
+                <ValidationMessage For="@(() => customer.Number)" />
+            </div>
+        </div>
+    </fieldset>
+
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+    <BacktoList Target="customer" />
+</EditForm>
+
+@code {
+    [Parameter] public Boolean Disabled { get; set; } = false;
+    [Parameter] public Customer customer { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}

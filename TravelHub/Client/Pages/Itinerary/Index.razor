@@ -1,0 +1,75 @@
+﻿@page "/itinerary/"
+@using Microsoft.AspNetCore.Authorization;
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<h3 class="card-title">Itineraries</h3>
+<br />
+
+<a href="/itinerary/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Itinerary
+</a>
+<br />
+<br />
+
+@if (Itineraries != null)
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Duration</th>
+                <th>Budget</th>
+                <th>Customer</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var itinerary in Itineraries)
+            {
+                <tr>
+                    <td>@itinerary.Duration</td>
+                    <td>@itinerary.Budget</td>
+                    <td>@itinerary.Customer.Name</td>
+                    <td>
+                        <a href="/itinerary/view/@itinerary.ItnID" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/itinerary/edit/@itinerary.ItnID" class="btn btn-primary">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(itinerary.ItnID))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">Loading Itineraries...</div>
+}
+
+@code {
+    private List<Itinerary> Itineraries;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Itineraries = await _client.GetFromJsonAsync<List<Itinerary>>($"{Endpoints.ItinerariesEndPoint}");
+    }
+
+    async Task Delete(int ItnID)
+    {
+        var itinerary = Itineraries.First(q => q.ItnID == ItnID);
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {itinerary.Duration}?");
+        if (confirm)
+        {
+            await _client.DeleteAsync($"{Endpoints.ItinerariesEndPoint}/{ItnID}");
+            await OnInitializedAsync();
+        }
+    }
+
+}

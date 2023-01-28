@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace TravelHub.Shared.Domain
 {
-    class Activity
+    public class Activity
     {
+        
         public int AcID { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }

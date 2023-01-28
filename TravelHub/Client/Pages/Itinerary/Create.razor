@@ -1,0 +1,18 @@
+﻿@page "/itinerary/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Itinerary</h3>
+<br />
+
+<FormComponent ButtonText="Create Itineraries" itinerary="itinerary" OnValidSubmit="@CreateItineraries"/>
+
+@code {
+    Itinerary itinerary = new Itinerary();
+
+    protected async Task CreateItineraries()
+    {
+        await _client.PostAsJsonAsync(Endpoints.ItinerariesEndPoint, itinerary);
+        _navManager.NavigateTo("/itinerary/");
+    }
+}

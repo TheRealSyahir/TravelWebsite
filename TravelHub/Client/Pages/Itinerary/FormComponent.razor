@@ -1,0 +1,60 @@
+﻿@inject HttpClient _client;
+@using TravelHub.Client.Component;
+
+<EditForm Model="@itinerary" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+
+        <div class="form-group">
+            <label>Duration:</label>
+            <div>
+                <InputNumber @bind-Value="@itinerary.Duration" class="form-control" />
+                <ValidationMessage For="@(() => itinerary.Duration)" />
+            </div>
+
+            <label>Budget:</label>
+            <div>
+                <InputNumber @bind-Value="@itinerary.Budget" class="form-control" />
+                <ValidationMessage For="@(() => itinerary.Budget)" />
+            </div>
+
+            <label>Customer:</label>
+            <div>
+                <InputSelect @bind-Value="itinerary.CustID" class="form-control">
+                    <option value="">-- Select Customer --</option>
+                    @if (customer != null)
+                    {
+                        foreach (var customer in customer)
+                        {
+                            <option value="@customer.CustID">@customer.Name</option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => itinerary.CustID)" />
+            </div>
+        </div>
+    </fieldset>
+
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+    <BacktoList Target="itinerary" />
+</EditForm>
+
+@code {
+    [Parameter] public Boolean Disabled { get; set; } = false;
+    [Parameter] public Itinerary itinerary { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private IList<Customer> customer;
+
+    protected async override Task OnInitializedAsync()
+    {
+        customer = await _client.GetFromJsonAsync<List<Customer>>($"{Endpoints.CustomersEndPoint}");
+    }
+}

@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelHub.Server.Data;
 
-namespace TravelHub.Server.Data.Migrations
+namespace TravelHub.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221218025926_AddNameToUser")]
-    partial class AddNameToUser
+    [Migration("20230128044500_updateItineraryAPI")]
+    partial class updateItineraryAPI
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -330,6 +330,158 @@ namespace TravelHub.Server.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("TravelHub.Shared.Domain.City", b =>
+                {
+                    b.Property<int>("CityID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Countryname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Safety")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Transport")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CityID");
+
+                    b.ToTable("City");
+
+                    b.HasData(
+                        new
+                        {
+                            CityID = 1,
+                            Countryname = "Singapore",
+                            Name = "Singapore",
+                            Safety = 5,
+                            Transport = "Accessible"
+                        },
+                        new
+                        {
+                            CityID = 2,
+                            Countryname = "England",
+                            Name = "London",
+                            Safety = 3,
+                            Transport = "Accessible"
+                        });
+                });
+
+            modelBuilder.Entity("TravelHub.Shared.Domain.Customer", b =>
+                {
+                    b.Property<int>("CustID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.HasKey("CustID");
+
+                    b.ToTable("Customer");
+
+                    b.HasData(
+                        new
+                        {
+                            CustID = 1,
+                            Address = "Star City",
+                            Name = "Oliver Queen",
+                            Number = 81275892
+                        },
+                        new
+                        {
+                            CustID = 2,
+                            Address = "Central City",
+                            Name = "Barry Allen",
+                            Number = 81265794
+                        });
+                });
+
+            modelBuilder.Entity("TravelHub.Shared.Domain.Itinerary", b =>
+                {
+                    b.Property<int>("ItnID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<float>("Budget")
+                        .HasColumnType("real");
+
+                    b.Property<int>("CustID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CustomerCustID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.HasKey("ItnID");
+
+                    b.HasIndex("CustomerCustID");
+
+                    b.ToTable("Itinerary");
+                });
+
+            modelBuilder.Entity("TravelHub.Shared.Domain.Location", b =>
+                {
+                    b.Property<int>("LocationID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CityID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Safety")
+                        .HasColumnType("int");
+
+                    b.HasKey("LocationID");
+
+                    b.HasIndex("CityID");
+
+                    b.ToTable("Location");
+                });
+
+            modelBuilder.Entity("TravelHub.Shared.Domain.Staff", b =>
+                {
+                    b.Property<int>("StaffID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.HasKey("StaffID");
+
+                    b.ToTable("Staff");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -379,6 +531,26 @@ namespace TravelHub.Server.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("TravelHub.Shared.Domain.Itinerary", b =>
+                {
+                    b.HasOne("TravelHub.Shared.Domain.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerCustID");
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("TravelHub.Shared.Domain.Location", b =>
+                {
+                    b.HasOne("TravelHub.Shared.Domain.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
                 });
 #pragma warning restore 612, 618
         }
