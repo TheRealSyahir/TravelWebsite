@@ -1,0 +1,23 @@
+﻿@page "/activity/edit/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>Edit Activity</h3>
+
+<FormComponent ButtonText="Update" OnValidSubmit="EditActivity" activity="activity"/>
+
+@code {
+    [Parameter] public int id { get; set; }
+    Activity activity = new Activity();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        activity = await _client.GetFromJsonAsync<Activity>($"{Endpoints.ActivitiesEndPoint}/{id}");
+    }
+
+    async Task EditActivity()
+    {
+        await _client.PutAsJsonAsync($"{Endpoints.ActivitiesEndPoint}/{id}",activity);
+        _navManager.NavigateTo("/activity/");
+    }
+}

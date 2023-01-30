@@ -21,7 +21,6 @@ namespace TravelHub.Server.Repository
         private IGenericRepository<Staff> _staffs;
         private IGenericRepository<Customer> _customers;
         private IGenericRepository<Itinerary> _itineraries;
-        private IGenericRepository<ActivitySelection> _activityselections;
 
         private UserManager<ApplicationUser> _userManager;
 
@@ -51,10 +50,6 @@ namespace TravelHub.Server.Repository
         {
             return _itineraries ??= new GenericRepository<Itinerary>(_context);
         }
-        public IGenericRepository<ActivitySelection> GetActivitySelections()
-        {
-            return _activityselections ??= new GenericRepository<ActivitySelection>(_context);
-        }
 
 
         public IGenericRepository<City> Cities => _cities ??= new GenericRepository<City>(_context);
@@ -62,7 +57,7 @@ namespace TravelHub.Server.Repository
         public IGenericRepository<Staff> Staffs => _staffs ??= new GenericRepository<Staff>(_context);
         public IGenericRepository<Customer> Customers => _customers ??= new GenericRepository<Customer>(_context);
         public IGenericRepository<Itinerary> Itineraries => _itineraries ??= new GenericRepository<Itinerary>(_context);
-        public IGenericRepository<ActivitySelection> ActivitySelections => _activityselections ??= new GenericRepository<ActivitySelection>(_context);
+
         public void Dispose()
         {
             _context.Dispose();

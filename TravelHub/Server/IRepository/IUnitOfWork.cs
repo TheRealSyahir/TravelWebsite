@@ -15,6 +15,5 @@ namespace TravelHub.Server.IRepository
         IGenericRepository<Staff> Staffs { get; }
         IGenericRepository<Customer> Customers { get; }
         IGenericRepository<Itinerary> Itineraries { get; }
-        IGenericRepository<ActivitySelection> ActivitySelections { get; }    
     }
 }

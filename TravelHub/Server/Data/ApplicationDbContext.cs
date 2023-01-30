@@ -24,6 +24,7 @@ namespace TravelHub.Server.Data
         public DbSet<Staff> Staff { get; set; }
         public DbSet<Customer> Customer { get; set; }
         public DbSet<Itinerary> Itinerary { get; set; }
+        public DbSet<Activity> Activity { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
