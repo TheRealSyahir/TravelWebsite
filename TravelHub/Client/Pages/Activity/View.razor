@@ -1,0 +1,16 @@
+﻿@page "/activity/view/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>View</h3>
+
+<FormComponent activity="activity" Disabled="true"/>
+
+@code {
+    [Parameter] public int id { get; set; }
+    Activity activity = new Activity();
+    protected async override Task OnParametersSetAsync()
+    {
+        activity = await _client.GetFromJsonAsync<Activity>($"{Endpoints.ActivitiesEndPoint}/{id}");
+    }
+}

@@ -1,0 +1,81 @@
+﻿@inject HttpClient _client;
+@using TravelHub.Client.Component; 
+
+<EditForm Model="@activity" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label>Name:</label>
+            <div>
+                <InputText @bind-Value="@activity.Name" class="form-control" />
+                <ValidationMessage For="@(() => activity.Name)" />
+            </div>
+            <label>Type:</label>
+            <div>
+                <InputText @bind-Value="@activity.Type" class="form-control" />
+                <ValidationMessage For="@(() => activity.Type)" />
+            </div>
+            <label>Price:</label>
+            <div>
+                <InputNumber @bind-Value="@activity.Price" class="form-control" />
+                <ValidationMessage For="@(() => activity.Price)" />
+            </div>
+            <label>Rating:</label>
+            <div>
+                <InputNumber @bind-Value="@activity.Rating" class="form-control" />
+                <ValidationMessage For="@(() => activity.Rating)" />
+            </div>
+            <label>Location:</label>
+            <div>
+                <InputSelect @bind-Value="activity.LocationID" class="form-control">
+                    <option value="">-- Select Location --</option>
+                    @if (location != null)
+                    {
+                        foreach (var location in location)
+                        {
+                            <option value="@location.LocationID">@location.Name</option>}
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => activity.LocationID)" />
+            </div>
+            <label>Staff:</label>
+            <div>
+                <InputSelect @bind-Value="activity.StaffID" class="form-control">
+                    <option value="">-- Select Staff --</option>
+                    @if (staff != null)
+                    {
+                        foreach (var staff in staff)
+                        {
+                            <option value="@staff.StaffID">@staff.Name</option>}
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => activity.StaffID)" />
+            </div>
+        </div>
+    </fieldset>
+
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+    <BacktoList Target="activity"/>
+</EditForm>
+
+@code {
+    [Parameter] public Boolean Disabled { get; set; } = false;
+    [Parameter] public Activity activity { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private IList<Location> location;
+    private IList<Staff> staff;
+
+    protected async override Task OnInitializedAsync()
+    {
+        location = await _client.GetFromJsonAsync<List<Location>>($"{Endpoints.LocationsEndPoint}");
+        staff = await _client.GetFromJsonAsync<List<Staff>>($"{Endpoints.StaffsEndPoint}");
+    }
+}

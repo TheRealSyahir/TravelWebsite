@@ -13,44 +13,43 @@ namespace TravelHub.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CitiesController : Controller
+    public class ActivitiesController : Controller
     {
 
         private readonly IUnitOfWork _unitofwork;
 
-        public CitiesController(IUnitOfWork unitofwork)
+        public ActivitiesController(IUnitOfWork unitofwork)
         {
             _unitofwork = unitofwork;
         }
 
         [HttpGet]
-        public async Task<IActionResult> getCities()
+        public async Task<IActionResult> getActivities()
         {
-# return NotFound();
-            var cities = await _unitofwork.Cities.GetAll();
-            return Ok(cities);
+            var activities = await _unitofwork.Activities.GetAll(includes:q=>q.Include(x=>x.Location).Include(x=>x.Staff));
+            return Ok(activities);
         }
         
         [HttpGet("{id}")]
-        public async Task<IActionResult> getCity(int id)
+        public async Task<IActionResult> getActivity(int id)
         {
-            var city = await _unitofwork.Cities.Get(q => q.CityID == id);
-            if (city == null)
+            var activity = await _unitofwork.Activities.Get(q => q.ActivityID == id);
+            if (activity == null)
             {
                 return NotFound();
             }
-            return Ok(city);
+            return Ok(activity);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> putCity(int id, City city)
+        public async Task<IActionResult> putActivity(int id, Activity activity)
         {
-            if (id != city.CityID)
+            if (id != activity.ActivityID)
             {
                 return BadRequest();
             }
 
-            _unitofwork.Cities.Update(city);
+            _unitofwork.Activities.Update(activity);
 
             try
             {
@@ -58,7 +57,7 @@ namespace TravelHub.Server.Controllers
             }
             catch(DbUpdateConcurrencyException)
             {
-                if(!await CityExists(id))
+                if(!await ActivityExists(id))
                 {
                     return NotFound();
                 }
@@ -74,33 +73,33 @@ namespace TravelHub.Server.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult<City>> PostCity(City city)
+        public async Task<ActionResult<Activity>> PostActivity(Activity activity)
         {
-            await _unitofwork.Cities.Insert(city);
+            await _unitofwork.Activities.Insert(activity);
             await _unitofwork.Save(HttpContext);
 
-            return CreatedAtAction("GetCity", new { id = city.CityID }, city);
+            return CreatedAtAction("GetActivity", new { id = activity.ActivityID }, activity);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCity(int id)
+        public async Task<IActionResult> DeleteActivity(int id)
         {
-            var city = await _unitofwork.Cities.Get(q => q.CityID == id);
+            var activity = await _unitofwork.Activities.Get(q => q.ActivityID == id);
             
-            if (city == null)
+            if (activity == null)
             {
                 return NotFound();
             }
-            await _unitofwork.Cities.Delete(id);
+            await _unitofwork.Activities.Delete(id);
             await _unitofwork.Save(HttpContext);
 
             return NoContent();
         }
 
-        private async Task<bool> CityExists(int id)
+        private async Task<bool> ActivityExists(int id)
         {
-            var city = await _unitofwork.Cities.Get(q => q.CityID == id);
-            return city != null;
+            var activity = await _unitofwork.Activities.Get(q => q.ActivityID == id);
+            return activity != null;
         }
     }
 }
