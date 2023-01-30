@@ -9,7 +9,7 @@ namespace TravelHub.Shared.Domain
     public class Activity
     {
         
-        public int AcID { get; set; }
+        public int ActivityID { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public float Price { get; set; }

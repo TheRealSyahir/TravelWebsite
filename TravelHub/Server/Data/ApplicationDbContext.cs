@@ -31,5 +31,6 @@ namespace TravelHub.Server.Data
             builder.ApplyConfiguration(new CitySeedConfiguration());
             builder.ApplyConfiguration(new CustomerSeedConfiguration());
         }
+        public DbSet<TravelHub.Shared.Domain.ActivitySelection> ActivitySelection { get; set; }
     }
 }

@@ -1,0 +1,16 @@
+﻿@page "/activityselection/view/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>View</h3>
+
+<FormComponent activityselection="activityselection" Disabled="true"/>
+
+@code {
+    [Parameter] public int id { get; set; }
+    ActivitySelection activityselection = new ActivitySelection();
+    protected async override Task OnParametersSetAsync()
+    {
+        activityselection = await _client.GetFromJsonAsync<ActivitySelection>($"{Endpoints.ActivitySelectionsEndPoint}/{id}");
+    }
+}

@@ -10,7 +10,7 @@ using TravelHub.Server.Data;
 namespace TravelHub.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230128084156_Test1")]
+    [Migration("20230128091319_Test1")]
     partial class Test1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

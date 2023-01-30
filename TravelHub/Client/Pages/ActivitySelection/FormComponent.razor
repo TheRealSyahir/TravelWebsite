@@ -1,0 +1,71 @@
+﻿@inject HttpClient _client;
+@using TravelHub.Client.Component;
+
+<EditForm Model="@activityselection" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+
+        <div class="form-group">
+            <label>Date:</label>
+            <div>
+                <InputDate @bind-Value="@activityselection.Date" class="form-control" />
+                <ValidationMessage For="@(() => activityselection.Date)" />
+            </div>
+
+            <label>Itinerary:</label>
+            <div>
+                <InputSelect @bind-Value="@activityselection.ItineraryID" class="form-control">
+                <option value="">-- Select Itinerary --</option>
+                    @if (itinerary != null)
+                    {
+                        foreach (var itinerary in itinerary)
+                        {
+                        <option value="@itinerary.ItineraryID">@itinerary.ItineraryID</option>
+                        }
+                    }
+               </InputSelect>
+               <ValidationMessage For="@(() => activityselection.ItineraryID)" />
+            </div>
+        
+            <label>Activity:</label>
+            <div>
+                <InputSelect @bind-Value="activityselection.ActivityID" class="form-control">
+                    <option value="">-- Select Activity --</option>
+                    @if (activity != null)
+                    {
+                        foreach (var activity in activity)
+                        {
+                            <option value="@activity.ActivityID">@Activity.Name</option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => activityselection.ActivityID)" />
+            </div>
+        </div>
+    </fieldset>
+
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+    <BacktoList Target="activityselection" />
+</EditForm>
+
+@code {
+    [Parameter] public Boolean Disabled { get; set; } = false;
+    [Parameter] public ActivitySelection activityselection { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private IList<Itinerary> itinerary;
+    private IList<Activity> activity;
+
+    protected async override Task OnInitializedAsync()
+    {
+        itinerary = await _client.GetFromJsonAsync<List<Itinerary>>($"{Endpoints.ItinerariesEndPoint}");
+        activity = await _client.GetFromJsonAsync<List<Activity>>($"{Endpoints.ActivitiesEndPoint}");
+    }
+}

@@ -1,0 +1,76 @@
+﻿@page "/activityselection/"
+@using Microsoft.AspNetCore.Authorization;
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<h3 class="card-title">ActivitySelections</h3>
+<br />
+
+<a href="/activityselection/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New ActivitySelection
+</a>
+<br />
+<br />
+
+@if (ActivitySelections != null)
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Itinerary</th>
+                <th>Activity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var activityselection in ActivitySelections)
+            {
+                <tr>
+                    <td>@activityselection.Date</td>
+                    <td>@activityselection.Itinerary.Duration</td>
+                    <td>@activityselection.Activity.Name</td>
+                    <td>
+                        <a href="/activityselection/view/@activityselection.ActivitySelectionID" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/activityselection/edit/@activityselection.ActivitySelectionID" class="btn btn-primary">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(activityselection.ActivitySelectionID))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">Loading ActivitySelections...</div>
+}
+
+@code {
+    private List<ActivitySelection> ActivitySelections;
+
+    protected async override Task OnInitializedAsync()
+    {
+        ActivitySelections = await _client.GetFromJsonAsync<List<ActivitySelection>>($"{Endpoints.ActivitySelectionsEndPoint}");
+    }
+
+    async Task Delete(int ActivitySelectionID)
+    {
+        var activityselection = ActivitySelections.First(q => q.ActivitySelectionID == ActivitySelectionID);
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {activityselection.Date}?");
+        if (confirm)
+        {
+            await _client.DeleteAsync($"{Endpoints.ActivitySelectionsEndPoint}/{ActivitySelectionID}");
+            await OnInitializedAsync();
+        }
+    }
+
+}
+
