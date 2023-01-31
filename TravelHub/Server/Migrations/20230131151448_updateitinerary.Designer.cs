@@ -10,8 +10,8 @@ using TravelHub.Server.Data;
 namespace TravelHub.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230131132239_updatesync")]
-    partial class updatesync
+    [Migration("20230131151448_updateitinerary")]
+    partial class updateitinerary
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -376,13 +376,15 @@ namespace TravelHub.Server.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ActivityID")
+                    b.Property<int?>("ActivityID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ItineraryID")
+                    b.Property<int?>("ItineraryID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("ActivitySelectionID");
@@ -495,6 +497,9 @@ namespace TravelHub.Server.Migrations
                     b.Property<int?>("CustomerID")
                         .IsRequired()
                         .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Duration")
                         .HasColumnType("int");

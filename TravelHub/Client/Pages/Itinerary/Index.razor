@@ -21,6 +21,7 @@
     <table class="table table-responsive">
         <thead>
             <tr>
+                <th>Description</th>
                 <th>Duration</th>
                 <th>Budget</th>
                 <th>Customer</th>
@@ -31,6 +32,7 @@
             @foreach (var itinerary in Itineraries)
             {
                 <tr>
+                    <td>@itinerary.Description</td>
                     <td>@itinerary.Duration</td>
                     <td>@itinerary.Budget</td>
                     <td>@itinerary.Customer.Name</td>
@@ -67,7 +69,7 @@ else
     async Task Delete(int ItineraryID)
     {
         var itinerary = Itineraries.First(q => q.ItineraryID == ItineraryID);
-        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {itinerary.Duration}?");
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {itinerary.Description}?");
         if (confirm)
         {
             await _client.DeleteAsync($"{Endpoints.ItinerariesEndPoint}/{ItineraryID}");

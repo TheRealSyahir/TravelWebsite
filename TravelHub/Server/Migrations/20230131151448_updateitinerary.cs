@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TravelHub.Server.Migrations
 {
-    public partial class Test1 : Migration
+    public partial class updateitinerary : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -54,10 +54,10 @@ namespace TravelHub.Server.Migrations
                 {
                     CityID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Safety = table.Column<int>(type: "int", nullable: false),
-                    Transport = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Countryname = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Transport = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Countryname = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,8 +70,8 @@ namespace TravelHub.Server.Migrations
                 {
                     CustomerID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Number = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -124,9 +124,9 @@ namespace TravelHub.Server.Migrations
                 {
                     StaffID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Number = table.Column<int>(type: "int", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -245,8 +245,8 @@ namespace TravelHub.Server.Migrations
                 {
                     LocationID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Safety = table.Column<int>(type: "int", nullable: false),
                     CityID = table.Column<int>(type: "int", nullable: false)
                 },
@@ -267,6 +267,7 @@ namespace TravelHub.Server.Migrations
                 {
                     ItineraryID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Duration = table.Column<int>(type: "int", nullable: false),
                     Budget = table.Column<float>(type: "real", nullable: false),
                     CustomerID = table.Column<int>(type: "int", nullable: false)
@@ -279,6 +280,63 @@ namespace TravelHub.Server.Migrations
                         column: x => x.CustomerID,
                         principalTable: "Customer",
                         principalColumn: "CustomerID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Activity",
+                columns: table => new
+                {
+                    ActivityID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<float>(type: "real", nullable: false),
+                    Rating = table.Column<int>(type: "int", nullable: false),
+                    StaffID = table.Column<int>(type: "int", nullable: false),
+                    LocationID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Activity", x => x.ActivityID);
+                    table.ForeignKey(
+                        name: "FK_Activity_Location_LocationID",
+                        column: x => x.LocationID,
+                        principalTable: "Location",
+                        principalColumn: "LocationID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Activity_Staff_StaffID",
+                        column: x => x.StaffID,
+                        principalTable: "Staff",
+                        principalColumn: "StaffID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ActivitySelection",
+                columns: table => new
+                {
+                    ActivitySelectionID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ItineraryID = table.Column<int>(type: "int", nullable: false),
+                    ActivityID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ActivitySelection", x => x.ActivitySelectionID);
+                    table.ForeignKey(
+                        name: "FK_ActivitySelection_Activity_ActivityID",
+                        column: x => x.ActivityID,
+                        principalTable: "Activity",
+                        principalColumn: "ActivityID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ActivitySelection_Itinerary_ItineraryID",
+                        column: x => x.ItineraryID,
+                        principalTable: "Itinerary",
+                        principalColumn: "ItineraryID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -299,6 +357,26 @@ namespace TravelHub.Server.Migrations
                     { 1, "Star City", "Oliver Queen", 81275892 },
                     { 2, "Central City", "Barry Allen", 81265794 }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Activity_LocationID",
+                table: "Activity",
+                column: "LocationID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Activity_StaffID",
+                table: "Activity",
+                column: "StaffID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActivitySelection_ActivityID",
+                table: "ActivitySelection",
+                column: "ActivityID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActivitySelection_ItineraryID",
+                table: "ActivitySelection",
+                column: "ItineraryID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -379,6 +457,9 @@ namespace TravelHub.Server.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ActivitySelection");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -397,22 +478,25 @@ namespace TravelHub.Server.Migrations
                 name: "DeviceCodes");
 
             migrationBuilder.DropTable(
-                name: "Itinerary");
-
-            migrationBuilder.DropTable(
-                name: "Location");
-
-            migrationBuilder.DropTable(
                 name: "PersistedGrants");
 
             migrationBuilder.DropTable(
-                name: "Staff");
+                name: "Activity");
+
+            migrationBuilder.DropTable(
+                name: "Itinerary");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Location");
+
+            migrationBuilder.DropTable(
+                name: "Staff");
 
             migrationBuilder.DropTable(
                 name: "Customer");
