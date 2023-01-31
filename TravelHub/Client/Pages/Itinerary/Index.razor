@@ -2,6 +2,8 @@
 @using Microsoft.AspNetCore.Authorization;
 @inject HttpClient _client
 @inject IJSRuntime js
+@inject HttpInterceptorServices _interceptor
+@implements IDisposable
 @attribute [Authorize]
 
 <h3 class="card-title">Itineraries</h3>
@@ -58,6 +60,7 @@ else
 
     protected async override Task OnInitializedAsync()
     {
+        _interceptor.MonitorEvent();
         Itineraries = await _client.GetFromJsonAsync<List<Itinerary>>($"{Endpoints.ItinerariesEndPoint}");
     }
 
@@ -70,6 +73,11 @@ else
             await _client.DeleteAsync($"{Endpoints.ItinerariesEndPoint}/{ItineraryID}");
             await OnInitializedAsync();
         }
+    }
+
+    public void Dispose()
+    {
+        _interceptor.DisposeEvent();
     }
 
 }

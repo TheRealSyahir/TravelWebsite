@@ -10,9 +10,14 @@ namespace TravelHub.Shared.Domain
     public class Itinerary
     {
         public int ItineraryID { get; set; }
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Duration must be greater than 0")]
         public int Duration { get; set; }
+        [Required]
+        [Range(1,int.MaxValue,ErrorMessage ="Budget must be greater than 0")]
         public float Budget { get; set; }
         public virtual Customer Customer { get; set; }
-        public int CustomerID { get; set; } 
+        [Required]
+        public int? CustomerID { get; set; } 
     }
 }

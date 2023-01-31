@@ -13,7 +13,13 @@
             </div>
             <label>Type:</label>
             <div>
-                <InputText @bind-Value="@activity.Type" class="form-control" />
+                <InputSelect @bind-Value="@activity.Type" class="form-control">
+                    <option value="">-- Select Type --</option>
+                    @foreach (var a in type)
+                    {
+                        <option value=@a>@a</option>                    
+                    }
+                </InputSelect>
                 <ValidationMessage For="@(() => activity.Type)" />
             </div>
             <label>Price:</label>
@@ -72,6 +78,7 @@
 
     private IList<Location> location;
     private IList<Staff> staff;
+    private String[] type = { "Adventure", "Thrilling", "Horror", "Shopping", "Sight Seeing"};
 
     protected async override Task OnInitializedAsync()
     {

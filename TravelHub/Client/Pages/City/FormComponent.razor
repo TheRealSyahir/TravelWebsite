@@ -17,7 +17,13 @@
             </div>
             <label>Transport:</label>
             <div>
-                <InputText @bind-Value="@city.Transport" class="form-control" />
+                <InputSelect @bind-Value="@city.Transport" class="form-control">
+                    <option value="">-- Select Accessibility --</option>
+                    @foreach (var a in transport)
+                    {
+                        <option value=@a>@a</option>
+                    }
+                </InputSelect>
                 <ValidationMessage For="@(() => city.Transport)" />
             </div>
             <label>Country:</label>
@@ -43,4 +49,6 @@
     [Parameter] public City city { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private String[] transport = {"Very Accessible","Acessible", "Inconvenient"};
 }

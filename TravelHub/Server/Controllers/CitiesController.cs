@@ -26,7 +26,6 @@ namespace TravelHub.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> getCities()
         {
-# return NotFound();
             var cities = await _unitofwork.Cities.GetAll();
             return Ok(cities);
         }

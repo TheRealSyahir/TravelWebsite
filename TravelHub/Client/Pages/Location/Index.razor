@@ -2,6 +2,8 @@
 @using Microsoft.AspNetCore.Authorization;
 @inject HttpClient _client
 @inject IJSRuntime js
+@inject HttpInterceptorServices _interceptor
+@implements IDisposable
 @attribute [Authorize]
 
 <h3 class="card-title">Locations</h3>
@@ -59,6 +61,7 @@ else
 
     protected async override Task OnInitializedAsync()
     {
+        _interceptor.MonitorEvent();
         Locations = await _client.GetFromJsonAsync<List<Location>>($"{Endpoints.LocationsEndPoint}");
     }
 
@@ -71,6 +74,11 @@ else
             await _client.DeleteAsync($"{Endpoints.LocationsEndPoint}/{locationID}");
             await OnInitializedAsync();
         }
+    }
+
+    public void Dispose()
+    {
+        _interceptor.DisposeEvent();
     }
 
 }
