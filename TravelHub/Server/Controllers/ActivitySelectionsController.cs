@@ -26,7 +26,7 @@ namespace TravelHub.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetActivitySelections()
         {
-            var activityselections = await _unitOfWork.ActivitySelections.GetAll(includes: q => q.Include(x => x.Itinerary));
+            var activityselections = await _unitOfWork.ActivitySelections.GetAll(includes: q => q.Include(x => x.Itinerary).Include(x=>x.Activity));
             return Ok(activityselections);
         }
 

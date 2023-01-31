@@ -9,13 +9,16 @@ namespace TravelHub.Shared.Domain
 {
     public class ActivitySelection
     {
-        public int AcsID { get; set; }
-        [Required]
+        
+        
         public int ActivitySelectionID { get; set; }
+        [Required]
         public DateTime Date { get; set; }
-        public int ItnID { get; set; }
+        [Required]
+        public int? ItineraryID { get; set; }
         public virtual Itinerary Itinerary { get; set; }
-        public int AcID { get; set; } 
+        [Required]
+        public int? ActivityID { get; set; } 
         public virtual Activity Activity { get; set; }
     }
 }
