@@ -7,6 +7,12 @@
     <fieldset disabled="@Disabled">
 
         <div class="form-group">
+            <label>Description:</label>
+            <div>
+                <InputText @bind-Value="@itinerary.Description" class="form-control" />
+                <ValidationMessage For="@(() => itinerary.Description)" />
+            </div>
+
             <label>Duration:</label>
             <div>
                 <InputNumber @bind-Value="@itinerary.Duration" class="form-control" />

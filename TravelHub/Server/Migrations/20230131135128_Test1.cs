@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TravelHub.Server.Migrations
 {
-    public partial class Test1 : Migration
+    public partial class updateitinerary : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -267,6 +267,7 @@ namespace TravelHub.Server.Migrations
                 {
                     ItineraryID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Duration = table.Column<int>(type: "int", nullable: false),
                     Budget = table.Column<float>(type: "real", nullable: false),
                     CustomerID = table.Column<int>(type: "int", nullable: false)

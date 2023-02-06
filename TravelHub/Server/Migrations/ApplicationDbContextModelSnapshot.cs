@@ -496,6 +496,9 @@ namespace TravelHub.Server.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Duration")
                         .HasColumnType("int");
 
