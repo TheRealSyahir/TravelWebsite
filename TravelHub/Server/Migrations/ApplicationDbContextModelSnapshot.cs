@@ -374,13 +374,15 @@ namespace TravelHub.Server.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ActivityID")
+                    b.Property<int?>("ActivityID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ItineraryID")
+                    b.Property<int?>("ItineraryID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("ActivitySelectionID");
