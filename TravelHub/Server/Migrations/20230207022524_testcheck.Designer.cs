@@ -10,8 +10,8 @@ using TravelHub.Server.Data;
 namespace TravelHub.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230206070925_check")]
-    partial class check
+    [Migration("20230207022524_testcheck")]
+    partial class testcheck
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -422,7 +422,7 @@ namespace TravelHub.Server.Migrations
                         {
                             ActivitySelectionID = 1,
                             ActivityID = 1,
-                            Date = new DateTime(2023, 2, 6, 15, 9, 25, 227, DateTimeKind.Local).AddTicks(8495),
+                            Date = new DateTime(2023, 2, 7, 10, 25, 23, 645, DateTimeKind.Local).AddTicks(6532),
                             ItineraryID = 2
                         },
                         new

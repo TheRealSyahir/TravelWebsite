@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TravelHub.Server.Migrations
 {
-    public partial class check : Migration
+    public partial class testcheck : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -407,7 +407,7 @@ namespace TravelHub.Server.Migrations
             migrationBuilder.InsertData(
                 table: "ActivitySelection",
                 columns: new[] { "ActivitySelectionID", "ActivityID", "Date", "ItineraryID" },
-                values: new object[] { 1, 1, new DateTime(2023, 2, 6, 15, 9, 25, 227, DateTimeKind.Local).AddTicks(8495), 2 });
+                values: new object[] { 1, 1, new DateTime(2023, 2, 7, 10, 25, 23, 645, DateTimeKind.Local).AddTicks(6532), 2 });
 
             migrationBuilder.InsertData(
                 table: "ActivitySelection",
