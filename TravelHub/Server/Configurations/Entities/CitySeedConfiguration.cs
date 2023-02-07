@@ -10,7 +10,8 @@ namespace TravelHub.Server.Configurations.Entities
 {
     public class CitySeedConfiguration : IEntityTypeConfiguration<City>
     {
-        public void Configure(EntityTypeBuilder<City> builder)
+        private String[] transport = { "Very Accessible", "Acessible", "Inconvenient" };
+    public void Configure(EntityTypeBuilder<City> builder)
         {
             builder.HasData(
                 new City
@@ -18,7 +19,7 @@ namespace TravelHub.Server.Configurations.Entities
                     CityID = 1,
                     Name = "Singapore",
                     Safety = 5,
-                    Transport = "Accessible",
+                    Transport = transport[1],
                     Countryname = "Singapore"
                 },
                 new City
@@ -26,7 +27,7 @@ namespace TravelHub.Server.Configurations.Entities
                     CityID = 2,
                     Name = "London",
                     Safety = 4,
-                    Transport = "Accessible",
+                    Transport = transport[1],
                     Countryname = "England"
                 },
                 new City
@@ -34,7 +35,7 @@ namespace TravelHub.Server.Configurations.Entities
                     CityID = 3,
                     Name = "Toronto",
                     Safety = 5,
-                    Transport = "Accessible",
+                    Transport = transport[1],
                     Countryname = "Canada"
                 },
                 new City
@@ -42,7 +43,7 @@ namespace TravelHub.Server.Configurations.Entities
                     CityID = 4,
                     Name = "New York City",
                     Safety = 5,
-                    Transport = "Accessible",
+                    Transport = transport[1],
                     Countryname = "United States"
                 },
                 new City
@@ -50,7 +51,7 @@ namespace TravelHub.Server.Configurations.Entities
                     CityID = 5,
                     Name = "San Francisco",
                     Safety = 5,
-                    Transport = "Accessible",
+                    Transport = transport[1],
                     Countryname = "United States"
                 }
             );

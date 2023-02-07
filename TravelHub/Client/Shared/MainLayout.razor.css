@@ -9,11 +9,11 @@
 }
 
 .sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    background-image: linear-gradient(180deg, #b200ff 0%, #b200ff 70%);
 }
 
 .top-row {
-    background-color: #f7f7f7;
+    background-color: #b200ff;
     border-bottom: 1px solid #d6d5d5;
     justify-content: flex-end;
     height: 3.5rem;
@@ -67,11 +67,4 @@
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;
     }
-}
-
-.bar1, .bar2, .bar3 {
-    width: 35px;
-    height: 5px;
-    background-color: #333;
-    margin: 6px 0;
 }
