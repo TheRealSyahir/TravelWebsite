@@ -1,14 +1,15 @@
 .navbar-toggler {
-    background-color: rgb(178 0 255);
+    background-color: #ffd800;
 }
 
 .top-row {
     height: 3.5rem;
-    background-color: rgb(178 0 255);
+    background-color: #000000;
 }
 
 .navbar-brand {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
+    color: #ff6a00;
 }
 
 .oi {
@@ -32,7 +33,7 @@
     }
 
     .nav-item ::deep a {
-        color: #ffd800;
+        color: #000000;
         border-radius: 4px;
         height: 3rem;
         display: flex;
