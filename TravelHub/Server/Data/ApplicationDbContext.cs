@@ -32,6 +32,11 @@ namespace TravelHub.Server.Data
 
             builder.ApplyConfiguration(new CitySeedConfiguration());
             builder.ApplyConfiguration(new CustomerSeedConfiguration());
+            builder.ApplyConfiguration(new LocationSeedConfiguration());
+            builder.ApplyConfiguration(new StaffSeedConfiguration());   
+            builder.ApplyConfiguration(new ActivitySeedConfiguration());
+            builder.ApplyConfiguration(new ActivitySelectionSeedConfiguration());
+            builder.ApplyConfiguration(new ItinerarySeedConfiguration());
         }
 
     }

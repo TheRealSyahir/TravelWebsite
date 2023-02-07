@@ -365,6 +365,28 @@ namespace TravelHub.Server.Migrations
                     b.HasIndex("StaffID");
 
                     b.ToTable("Activity");
+
+                    b.HasData(
+                        new
+                        {
+                            ActivityID = 1,
+                            LocationID = 2,
+                            Name = "Tour of Buckingham Palace",
+                            Price = 5f,
+                            Rating = 8,
+                            StaffID = 1,
+                            Type = "Sight Seeing"
+                        },
+                        new
+                        {
+                            ActivityID = 2,
+                            LocationID = 4,
+                            Name = "Tour at Empire State Building",
+                            Price = 10f,
+                            Rating = 9,
+                            StaffID = 2,
+                            Type = " Sight Seeing"
+                        });
                 });
 
             modelBuilder.Entity("TravelHub.Shared.Domain.ActivitySelection", b =>
@@ -392,6 +414,22 @@ namespace TravelHub.Server.Migrations
                     b.HasIndex("ItineraryID");
 
                     b.ToTable("ActivitySelection");
+
+                    b.HasData(
+                        new
+                        {
+                            ActivitySelectionID = 1,
+                            ActivityID = 1,
+                            Date = new DateTime(2023, 2, 6, 15, 9, 25, 227, DateTimeKind.Local).AddTicks(8495),
+                            ItineraryID = 2
+                        },
+                        new
+                        {
+                            ActivitySelectionID = 2,
+                            ActivityID = 2,
+                            Date = new DateTime(2023, 5, 1, 8, 30, 0, 0, DateTimeKind.Unspecified),
+                            ItineraryID = 1
+                        });
                 });
 
             modelBuilder.Entity("TravelHub.Shared.Domain.City", b =>
@@ -436,7 +474,31 @@ namespace TravelHub.Server.Migrations
                             CityID = 2,
                             Countryname = "England",
                             Name = "London",
-                            Safety = 3,
+                            Safety = 4,
+                            Transport = "Accessible"
+                        },
+                        new
+                        {
+                            CityID = 3,
+                            Countryname = "Canada",
+                            Name = "Toronto",
+                            Safety = 5,
+                            Transport = "Accessible"
+                        },
+                        new
+                        {
+                            CityID = 4,
+                            Countryname = "United States",
+                            Name = "New York City",
+                            Safety = 5,
+                            Transport = "Accessible"
+                        },
+                        new
+                        {
+                            CityID = 5,
+                            Countryname = "United States",
+                            Name = "San Francisco",
+                            Safety = 5,
                             Transport = "Accessible"
                         });
                 });
@@ -507,6 +569,24 @@ namespace TravelHub.Server.Migrations
                     b.HasIndex("CustomerID");
 
                     b.ToTable("Itinerary");
+
+                    b.HasData(
+                        new
+                        {
+                            ItineraryID = 1,
+                            Budget = 500f,
+                            CustomerID = 1,
+                            Description = "NYC Trip",
+                            Duration = 5
+                        },
+                        new
+                        {
+                            ItineraryID = 2,
+                            Budget = 250f,
+                            CustomerID = 2,
+                            Description = "Explore London",
+                            Duration = 4
+                        });
                 });
 
             modelBuilder.Entity("TravelHub.Shared.Domain.Location", b =>
@@ -538,6 +618,48 @@ namespace TravelHub.Server.Migrations
                     b.HasIndex("CityID");
 
                     b.ToTable("Location");
+
+                    b.HasData(
+                        new
+                        {
+                            LocationID = 1,
+                            Address = "10 Bayfront Avenue, Singapore",
+                            CityID = 1,
+                            Name = "Marina Bay Sands",
+                            Safety = 5
+                        },
+                        new
+                        {
+                            LocationID = 2,
+                            Address = " London SW1A 1AA, United Kingdom",
+                            CityID = 2,
+                            Name = "Buckingham Palace",
+                            Safety = 5
+                        },
+                        new
+                        {
+                            LocationID = 3,
+                            Address = "100 Queens Park, Toronto, ON M5S 2C6, Canada",
+                            CityID = 3,
+                            Name = "Royal Ontario Museum",
+                            Safety = 5
+                        },
+                        new
+                        {
+                            LocationID = 4,
+                            Address = "20 W 34th St., New York, NY 10001, United States",
+                            CityID = 4,
+                            Name = "Empire State Building",
+                            Safety = 4
+                        },
+                        new
+                        {
+                            LocationID = 5,
+                            Address = "Golden Gate Bridge, San Francisco, CA, United States",
+                            CityID = 5,
+                            Name = "Golden Gate Bridge",
+                            Safety = 4
+                        });
                 });
 
             modelBuilder.Entity("TravelHub.Shared.Domain.Staff", b =>
@@ -563,6 +685,43 @@ namespace TravelHub.Server.Migrations
                     b.HasKey("StaffID");
 
                     b.ToTable("Staff");
+
+                    b.HasData(
+                        new
+                        {
+                            StaffID = 1,
+                            Address = "Bedok St 21",
+                            Name = "Leroy Jenkins",
+                            Number = 81265792
+                        },
+                        new
+                        {
+                            StaffID = 2,
+                            Address = "Pasir Ris St 21",
+                            Name = "Ben Clarke",
+                            Number = 90293212
+                        },
+                        new
+                        {
+                            StaffID = 3,
+                            Address = "Tampines St 4",
+                            Name = "Lebron James",
+                            Number = 90299132
+                        },
+                        new
+                        {
+                            StaffID = 4,
+                            Address = "Tampines St 5",
+                            Name = "Jeff Hopkins",
+                            Number = 81264932
+                        },
+                        new
+                        {
+                            StaffID = 5,
+                            Address = "Tampines St 6",
+                            Name = "Emelia Clark",
+                            Number = 90221012
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

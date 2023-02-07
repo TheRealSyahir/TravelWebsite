@@ -7,7 +7,7 @@
 <h3 class="card-title">ActivitySelections</h3>
 <br />
 
-<a href="/activityselection/create" class="btn btn-secondary">
+<a href="/activityselection/create" class="btn btn-info">
     <span class="oi oi-plus"></span>
     Create New ActivitySelection
 </a>
@@ -30,13 +30,13 @@
             {
                 <tr>
                     <td>@activityselection.Date</td>
-                    <td>@activityselection.Itinerary.Duration</td>
+                    <td>@activityselection.Itinerary.Description</td>
                     <td>@activityselection.Activity.Name</td>
                     <td>
                         <a href="/activityselection/view/@activityselection.ActivitySelectionID" class="btn btn-primary">
                             <span class="oi oi-book"></span>
                         </a>
-                        <a href="/activityselection/edit/@activityselection.ActivitySelectionID" class="btn btn-primary">
+                        <a href="/activityselection/edit/@activityselection.ActivitySelectionID" class="btn btn-info" colour="green">
                             <span class="oi oi-pencil"></span>
                         </a>
                         <button class="btn btn-danger" @onclick="@(()=>Delete(activityselection.ActivitySelectionID))">

@@ -25,9 +25,33 @@ namespace TravelHub.Server.Configurations.Entities
                 {
                     CityID = 2,
                     Name = "London",
-                    Safety = 3,
+                    Safety = 4,
                     Transport = "Accessible",
                     Countryname = "England"
+                },
+                new City
+                {
+                    CityID = 3,
+                    Name = "Toronto",
+                    Safety = 5,
+                    Transport = "Accessible",
+                    Countryname = "Canada"
+                },
+                new City
+                {
+                    CityID = 4,
+                    Name = "New York City",
+                    Safety = 5,
+                    Transport = "Accessible",
+                    Countryname = "United States"
+                },
+                new City
+                {
+                    CityID = 5,
+                    Name = "San Francisco",
+                    Safety = 5,
+                    Transport = "Accessible",
+                    Countryname = "United States"
                 }
             );
         }

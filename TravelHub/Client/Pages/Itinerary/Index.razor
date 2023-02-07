@@ -9,7 +9,7 @@
 <h3 class="card-title">Itineraries</h3>
 <br />
 
-<a href="/itinerary/create" class="btn btn-secondary">
+<a href="/itinerary/create" class="btn btn-info">
     <span class="oi oi-plus"></span>
     Create New Itinerary
 </a>
@@ -40,7 +40,7 @@
                         <a href="/itinerary/view/@itinerary.ItineraryID" class="btn btn-primary">
                             <span class="oi oi-book"></span>
                         </a>
-                        <a href="/itinerary/edit/@itinerary.ItineraryID" class="btn btn-primary">
+                        <a href="/itinerary/edit/@itinerary.ItineraryID" class="btn btn-info" colour="green">
                             <span class="oi oi-pencil"></span>
                         </a>
                         <button class="btn btn-danger" @onclick="@(()=>Delete(itinerary.ItineraryID))">

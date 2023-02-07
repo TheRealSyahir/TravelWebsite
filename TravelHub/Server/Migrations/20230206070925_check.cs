@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TravelHub.Server.Migrations
 {
-    public partial class updateitinerary : Migration
+    public partial class check : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -346,7 +346,10 @@ namespace TravelHub.Server.Migrations
                 values: new object[,]
                 {
                     { 1, "Singapore", "Singapore", 5, "Accessible" },
-                    { 2, "England", "London", 3, "Accessible" }
+                    { 2, "England", "London", 4, "Accessible" },
+                    { 3, "Canada", "Toronto", 5, "Accessible" },
+                    { 4, "United States", "New York City", 5, "Accessible" },
+                    { 5, "United States", "San Francisco", 5, "Accessible" }
                 });
 
             migrationBuilder.InsertData(
@@ -357,6 +360,59 @@ namespace TravelHub.Server.Migrations
                     { 1, "Star City", "Oliver Queen", 81275892 },
                     { 2, "Central City", "Barry Allen", 81265794 }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Staff",
+                columns: new[] { "StaffID", "Address", "Name", "Number" },
+                values: new object[,]
+                {
+                    { 1, "Bedok St 21", "Leroy Jenkins", 81265792 },
+                    { 2, "Pasir Ris St 21", "Ben Clarke", 90293212 },
+                    { 3, "Tampines St 4", "Lebron James", 90299132 },
+                    { 4, "Tampines St 5", "Jeff Hopkins", 81264932 },
+                    { 5, "Tampines St 6", "Emelia Clark", 90221012 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Itinerary",
+                columns: new[] { "ItineraryID", "Budget", "CustomerID", "Description", "Duration" },
+                values: new object[,]
+                {
+                    { 1, 500f, 1, "NYC Trip", 5 },
+                    { 2, 250f, 2, "Explore London", 4 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Location",
+                columns: new[] { "LocationID", "Address", "CityID", "Name", "Safety" },
+                values: new object[,]
+                {
+                    { 1, "10 Bayfront Avenue, Singapore", 1, "Marina Bay Sands", 5 },
+                    { 2, " London SW1A 1AA, United Kingdom", 2, "Buckingham Palace", 5 },
+                    { 3, "100 Queens Park, Toronto, ON M5S 2C6, Canada", 3, "Royal Ontario Museum", 5 },
+                    { 4, "20 W 34th St., New York, NY 10001, United States", 4, "Empire State Building", 4 },
+                    { 5, "Golden Gate Bridge, San Francisco, CA, United States", 5, "Golden Gate Bridge", 4 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Activity",
+                columns: new[] { "ActivityID", "LocationID", "Name", "Price", "Rating", "StaffID", "Type" },
+                values: new object[] { 1, 2, "Tour of Buckingham Palace", 5f, 8, 1, "Sight Seeing" });
+
+            migrationBuilder.InsertData(
+                table: "Activity",
+                columns: new[] { "ActivityID", "LocationID", "Name", "Price", "Rating", "StaffID", "Type" },
+                values: new object[] { 2, 4, "Tour at Empire State Building", 10f, 9, 2, " Sight Seeing" });
+
+            migrationBuilder.InsertData(
+                table: "ActivitySelection",
+                columns: new[] { "ActivitySelectionID", "ActivityID", "Date", "ItineraryID" },
+                values: new object[] { 1, 1, new DateTime(2023, 2, 6, 15, 9, 25, 227, DateTimeKind.Local).AddTicks(8495), 2 });
+
+            migrationBuilder.InsertData(
+                table: "ActivitySelection",
+                columns: new[] { "ActivitySelectionID", "ActivityID", "Date", "ItineraryID" },
+                values: new object[] { 2, 2, new DateTime(2023, 5, 1, 8, 30, 0, 0, DateTimeKind.Unspecified), 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Activity_LocationID",
