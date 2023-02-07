@@ -11,6 +11,14 @@
     </button>
 </div>
 
+<div class="" @onclick="OnOff">
+    <li class="nav-item px-3">
+        <NavLink class="nav-link">
+            <span class="oi oi-home" aria-hidden="true"></span> Display
+        </NavLink>
+    </li>
+</div>
+
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
         <AuthorizeView>
@@ -38,58 +46,67 @@
                 </li>
             </NotAuthorized>
         </AuthorizeView>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="city">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Cities
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="location">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Locations
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="staff">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Staffs
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="customer">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Customers
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="itinerary">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Itineraries
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="activity">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Activities
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="activityselection">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> ActivitySelections
-            </NavLink>
-        </li>
+        @if (check)
+        {
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Home
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="city">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Cities
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="location">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Locations
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="staff">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Staffs
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="customer">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Customers
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="itinerary">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Itineraries
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="activity">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Activities
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="activityselection">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> ActivitySelections
+                </NavLink>
+            </li>
+        }
     </ul>
 </div>
 
 @code 
 { 
     private bool collapseNavMenu = true;
+    private bool check = false;
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void OnOff()
+    {
+        check = !check;
     }
 
     private async Task BeginSignOut(MouseEventArgs args)
