@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TravelHub.Server.Migrations
 {
-    public partial class testcheck : Migration
+    public partial class check : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -345,11 +345,11 @@ namespace TravelHub.Server.Migrations
                 columns: new[] { "CityID", "Countryname", "Name", "Safety", "Transport" },
                 values: new object[,]
                 {
-                    { 1, "Singapore", "Singapore", 5, "Accessible" },
-                    { 2, "England", "London", 4, "Accessible" },
-                    { 3, "Canada", "Toronto", 5, "Accessible" },
-                    { 4, "United States", "New York City", 5, "Accessible" },
-                    { 5, "United States", "San Francisco", 5, "Accessible" }
+                    { 1, "Singapore", "Singapore", 5, "Acessible" },
+                    { 2, "England", "London", 4, "Acessible" },
+                    { 3, "Canada", "Toronto", 5, "Acessible" },
+                    { 4, "United States", "New York City", 5, "Acessible" },
+                    { 5, "United States", "San Francisco", 5, "Acessible" }
                 });
 
             migrationBuilder.InsertData(
@@ -407,7 +407,7 @@ namespace TravelHub.Server.Migrations
             migrationBuilder.InsertData(
                 table: "ActivitySelection",
                 columns: new[] { "ActivitySelectionID", "ActivityID", "Date", "ItineraryID" },
-                values: new object[] { 1, 1, new DateTime(2023, 2, 7, 10, 25, 23, 645, DateTimeKind.Local).AddTicks(6532), 2 });
+                values: new object[] { 1, 1, new DateTime(2023, 2, 7, 12, 57, 29, 605, DateTimeKind.Local).AddTicks(4060), 2 });
 
             migrationBuilder.InsertData(
                 table: "ActivitySelection",

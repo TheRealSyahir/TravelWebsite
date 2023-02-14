@@ -420,7 +420,7 @@ namespace TravelHub.Server.Migrations
                         {
                             ActivitySelectionID = 1,
                             ActivityID = 1,
-                            Date = new DateTime(2023, 2, 7, 10, 35, 25, 213, DateTimeKind.Local).AddTicks(9985),
+                            Date = new DateTime(2023, 2, 7, 12, 57, 29, 605, DateTimeKind.Local).AddTicks(4060),
                             ItineraryID = 2
                         },
                         new
@@ -467,7 +467,7 @@ namespace TravelHub.Server.Migrations
                             Countryname = "Singapore",
                             Name = "Singapore",
                             Safety = 5,
-                            Transport = "Accessible"
+                            Transport = "Acessible"
                         },
                         new
                         {
@@ -475,7 +475,7 @@ namespace TravelHub.Server.Migrations
                             Countryname = "England",
                             Name = "London",
                             Safety = 4,
-                            Transport = "Accessible"
+                            Transport = "Acessible"
                         },
                         new
                         {
@@ -483,7 +483,7 @@ namespace TravelHub.Server.Migrations
                             Countryname = "Canada",
                             Name = "Toronto",
                             Safety = 5,
-                            Transport = "Accessible"
+                            Transport = "Acessible"
                         },
                         new
                         {
@@ -491,7 +491,7 @@ namespace TravelHub.Server.Migrations
                             Countryname = "United States",
                             Name = "New York City",
                             Safety = 5,
-                            Transport = "Accessible"
+                            Transport = "Acessible"
                         },
                         new
                         {
@@ -499,7 +499,7 @@ namespace TravelHub.Server.Migrations
                             Countryname = "United States",
                             Name = "San Francisco",
                             Safety = 5,
-                            Transport = "Accessible"
+                            Transport = "Acessible"
                         });
                 });
 

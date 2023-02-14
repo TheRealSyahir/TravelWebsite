@@ -10,8 +10,8 @@ using TravelHub.Server.Data;
 namespace TravelHub.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230207022524_testcheck")]
-    partial class testcheck
+    [Migration("20230207045730_check")]
+    partial class check
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -422,7 +422,7 @@ namespace TravelHub.Server.Migrations
                         {
                             ActivitySelectionID = 1,
                             ActivityID = 1,
-                            Date = new DateTime(2023, 2, 7, 10, 25, 23, 645, DateTimeKind.Local).AddTicks(6532),
+                            Date = new DateTime(2023, 2, 7, 12, 57, 29, 605, DateTimeKind.Local).AddTicks(4060),
                             ItineraryID = 2
                         },
                         new
@@ -469,7 +469,7 @@ namespace TravelHub.Server.Migrations
                             Countryname = "Singapore",
                             Name = "Singapore",
                             Safety = 5,
-                            Transport = "Accessible"
+                            Transport = "Acessible"
                         },
                         new
                         {
@@ -477,7 +477,7 @@ namespace TravelHub.Server.Migrations
                             Countryname = "England",
                             Name = "London",
                             Safety = 4,
-                            Transport = "Accessible"
+                            Transport = "Acessible"
                         },
                         new
                         {
@@ -485,7 +485,7 @@ namespace TravelHub.Server.Migrations
                             Countryname = "Canada",
                             Name = "Toronto",
                             Safety = 5,
-                            Transport = "Accessible"
+                            Transport = "Acessible"
                         },
                         new
                         {
@@ -493,7 +493,7 @@ namespace TravelHub.Server.Migrations
                             Countryname = "United States",
                             Name = "New York City",
                             Safety = 5,
-                            Transport = "Accessible"
+                            Transport = "Acessible"
                         },
                         new
                         {
@@ -501,7 +501,7 @@ namespace TravelHub.Server.Migrations
                             Countryname = "United States",
                             Name = "San Francisco",
                             Safety = 5,
-                            Transport = "Accessible"
+                            Transport = "Acessible"
                         });
                 });
 
